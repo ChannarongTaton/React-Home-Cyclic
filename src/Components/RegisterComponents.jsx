@@ -65,6 +65,7 @@ const sendData = (e) => {
   { nickName, lineName, userId, pictureUrl, userStatus})
   .then(response => {
     console.log(response.data);
+    setApi(response.data)
     liff.closeWindow()
   })
 }
