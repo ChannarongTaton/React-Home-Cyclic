@@ -64,9 +64,11 @@ const sendData = (e) => {
   axios.post(`${process.env.REACT_APP_API_USER}/create`,
   { nickName, lineName, userId, pictureUrl, userStatus})
   .then(response => {
-    console.log(response.data);
-    setApi(response.data)
+    setApi('บันทึกเรียบร้อย')
     liff.closeWindow()
+  })
+  .catch(err => {
+    setApi(err)
   })
 }
 
