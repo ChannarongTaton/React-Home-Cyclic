@@ -8,17 +8,23 @@ import DoorComponent from './Components/DoorComponent';
 function App(props) {
   const { params } = props
   const navigate = useNavigate()
-  
-  useEffect(() => {
-    if(params === 'register') {
-      navigate('/register')
-    } else if (params === 'controller') {
-      navigate('/liff-home')
-    } else if (params === 'controller99-1'){
-      navigate('/home2')
-    }
-    // eslint-disable-next-line
-  },[])
+  if(params === 'register') {
+    navigate('/register')
+  } else if (params === 'controller') {
+    navigate('/liff-home')
+  } else if (params === 'controller99-1'){
+    navigate('/home2')
+  }
+  // useEffect(() => {
+  //   if(params === 'register') {
+  //     navigate('/register')
+  //   } else if (params === 'controller') {
+  //     navigate('/liff-home')
+  //   } else if (params === 'controller99-1'){
+  //     navigate('/home2')
+  //   }
+  //   // eslint-disable-next-line
+  // },[])
   return (
     <div className="App">
       <h1>Hello, ยินดีต้อนรับนะ :D</h1>
