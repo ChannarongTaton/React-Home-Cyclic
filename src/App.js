@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 // import { useEffect } from 'react';
 import LiffComponents from './Components/LiffComponent'
 function App(props) {
-  // const { params } = props
+  const { params } = props
   // const navigate = useNavigate()
   
   // useEffect(() => {
@@ -19,6 +19,7 @@ function App(props) {
   // },[])
   return (
     <div className="App">
+      <h1>{params}</h1>
       <LiffComponents/>
     </div>
   );  

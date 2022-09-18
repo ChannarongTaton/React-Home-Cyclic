@@ -9,7 +9,7 @@ const MyRoute=()=> {
     return(
         <Router>
             <Routes>
-                <Route path='*' element={<App params={params}/>}/>
+                <Route path='/' element={<App params={params}/>}/>
                 <Route path="/register" element={<RegisterComponents/>}/>
                 <Route path="/liff-home" element={<LiffComponent/>}/>
                 <Route path="/home2" element={<DoorComponent/>}/>
