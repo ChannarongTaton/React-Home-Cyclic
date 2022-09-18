@@ -19,7 +19,7 @@ function App(props) {
   return (
     <div className="App">
       <h1>Hello, ยินดีต้อนรับนะ :D</h1>
-      {/* <h1>{params}</h1> */}
+      <h1>{params}</h1>
       {/* <LiffComponents/> */}
     </div>
   );  
