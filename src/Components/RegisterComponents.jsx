@@ -12,6 +12,7 @@ function RegisterComponents() {
     pictureUrl: ProfileJPG,
     userStatus:''
 })
+  const [api, setApi] = useState('')
 
   const {nickName, lineName, userId, pictureUrl, userStatus} = linedata
   const liffLogin= async () => {
@@ -64,6 +65,7 @@ const sendData = (e) => {
   { nickName, lineName, userId, pictureUrl, userStatus})
   .then(response => {
     if (response.status === 200) {
+      setApi(response.data)
       liff.closeWindow()
     }
   })
@@ -76,6 +78,7 @@ useEffect(()=> {
   return (
     <div>
       <div className='container'>
+        <h1>{api}</h1>
         <h1 style={{"margin-top": '100px', "margin-bottom": '30px'}}>ใส่ชื่อเล่น</h1>
         <form className='form' onSubmit={sendData}>
           <div className='form-control'>
