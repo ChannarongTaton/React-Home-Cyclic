@@ -64,10 +64,8 @@ const sendData = (e) => {
   axios.post(`${process.env.REACT_APP_API_USER}/create`,
   { nickName, lineName, userId, pictureUrl, userStatus})
   .then(response => {
-    if (response.status === 200) {
-      setApi(response.data)
-      liff.closeWindow()
-    }
+    console.log(response.data);
+    liff.closeWindow()
   })
 }
 
