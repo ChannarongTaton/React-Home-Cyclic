@@ -6,11 +6,10 @@ import { useEffect } from 'react';
 import LiffComponents from './Components/LiffComponent'
 // import Navigation from './Components/Navigation'
 import DoorComponent from './Components/DoorComponent';
-function App(props) {
-  const { params } = props
+function App() {
   let search = useLocation.search;
   const navigator = useNavigate()
-  const nameId = new URLSearchParams(search).get(params)
+  const nameId = new URLSearchParams(search).get('page')
 
   // if(params === 'register') {
   //   navigate('/register')
@@ -33,7 +32,7 @@ function App(props) {
   return (
     <div className="App">
       <h1>Hello, ยินดีต้อนรับนะ :D</h1>
-      <h1>{params}</h1>
+      <h1>{nameId}</h1>
       {/* {params === 'controller99-1' ? <DoorComponent/> : <LiffComponents/>} */}
       {/* <LiffComponents/> */}
       {/* <Navigation/> */}

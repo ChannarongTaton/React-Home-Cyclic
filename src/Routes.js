@@ -4,12 +4,10 @@ import RegisterComponents from './Components/RegisterComponents'
 import LiffComponent from './Components/LiffComponent'
 import DoorComponent from './Components/DoorComponent'
 const MyRoute=()=> {
-        const queryParams = new URLSearchParams(window.location.search);
-        const params = queryParams.get('page');
     return(
         <Router>
             <Routes>
-                <Route path='/' element={<App params={params}/>}/>
+                <Route path='/' element={<App/>}/>
                 <Route path="/register" element={<RegisterComponents/>}/>
                 <Route path="/liff-home" element={<LiffComponent/>}/>
                 <Route path="/home2" element={<DoorComponent/>}/>
