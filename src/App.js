@@ -1,13 +1,17 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import liff from '@line/liff';
 import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react';
+import { useEffect, useLocation } from 'react';
 import LiffComponents from './Components/LiffComponent'
 // import Navigation from './Components/Navigation'
 import DoorComponent from './Components/DoorComponent';
 function App(props) {
   const { params } = props
-  const navigate = useNavigate()
+  let search = useLocation.search;
+  const navigator = useNavigate()
+  const nameId = new URLSearchParams(search).get(params)
+
   // if(params === 'register') {
   //   navigate('/register')
   // } else if (params === 'controller') {
@@ -16,12 +20,13 @@ function App(props) {
   //   navigate('/home2')
   // }
   useEffect(() => {
-    if(params === 'register') {
-      navigate('/register')
-    } else if (params === 'controller') {
-      navigate('/liff-home')
-    } else if (params === 'controller99-1'){
-      navigate('/home2')
+    // liffInit();
+    if(nameId === 'register') {
+      navigator('/register')
+    } else if (nameId === 'controller') {
+      navigator('/liff-home')
+    } else if (nameId === 'controller99-1'){
+      navigator('/home2')
     }
     // eslint-disable-next-line
   },[])
@@ -29,7 +34,7 @@ function App(props) {
     <div className="App">
       <h1>Hello, ยินดีต้อนรับนะ :D</h1>
       <h1>{params}</h1>
-      {params === 'controller99-1' ? <DoorComponent/> : <LiffComponents/>}
+      {/* {params === 'controller99-1' ? <DoorComponent/> : <LiffComponents/>} */}
       {/* <LiffComponents/> */}
       {/* <Navigation/> */}
     </div>
