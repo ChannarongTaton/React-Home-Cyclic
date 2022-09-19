@@ -8,22 +8,20 @@ import DoorComponent from './Components/DoorComponent';
 import { ThreeDots } from 'react-loader-spinner'
 function App(props) {
   const { params } = props
-  let search = useLocation.search;
   const navigator = useNavigate()
-  const nameId = new URLSearchParams(search).get(params)
-
+  console.log(props);
 
   useEffect(() => {
     // liffInit();
-    if(nameId === 'register') {
-      console.log(nameId);
+    if(params === 'register') {
+      console.log(params);
       navigator('/register')
-    } else if (nameId === 'controller') {
+    } else if (params === 'controller') {
       navigator('/liff-home')
-      console.log(nameId);
-    } else if (nameId === 'controller99-1'){
+      console.log(params);
+    } else if (params === 'controller99-1'){
       navigator('/home2')
-      console.log(nameId);
+      console.log(params);
     }
     // eslint-disable-next-line
   },[])
@@ -31,9 +29,8 @@ function App(props) {
   return (
     <div className="App">
       <h1>Hello, ยินดีต้อนรับนะ :D</h1>
-      <h1>{params}</h1>
-      <h1>{nameId}</h1>
-      {params === 'controller99-1' ? <DoorComponent/> : <ThreeDots/>}
+      <h1>{'ชื่อจาก parameter'+params}</h1>
+      {/* {params === 'controller99-1' ? <ThreeDots/> : <DoorComponent/>} */}
     </div>
   );  
 }
