@@ -13,7 +13,7 @@ function App() {
   const navigator = useNavigate()
   const queryParams = new URLSearchParams(search).get('liff.state')
   // const { params } = props
-  console.log(queryParams);
+  // console.log(queryParams);
   const fetchData=()=> {
     axios.get(`${process.env.REACT_APP_API}/Items`)
     .then(response => {
@@ -25,11 +25,11 @@ function App() {
   useEffect(() => {
     // liffInit();
     fetchData()
-    if(queryParams === 'register') {
+    if(queryParams === '?page=register') {
       navigator('/register')
-    } else if (queryParams === '%3Fpage%3Dcontroller') {
+    } else if (queryParams === '?page=controller') {
       navigator('/liff-home')
-    } else if (queryParams === 'controller99-1'){
+    } else if (queryParams === '?page=controller99-1'){
       navigator('/home2')
     }
     // eslint-disable-next-line
