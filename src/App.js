@@ -11,7 +11,7 @@ import axios from 'axios';
 function App() {
   let search = useLocation().search;
   const navigator = useNavigate()
-  const queryParams = new URLSearchParams(search).get('page')
+  const queryParams = new URLSearchParams(search).get('liff.state')
   // const { params } = props
   console.log(queryParams);
   const fetchData=()=> {
@@ -27,7 +27,7 @@ function App() {
     fetchData()
     if(queryParams === 'register') {
       navigator('/register')
-    } else if (queryParams === 'controller') {
+    } else if (queryParams === '%3Fpage%3Dcontroller') {
       navigator('/liff-home')
     } else if (queryParams === 'controller99-1'){
       navigator('/home2')
