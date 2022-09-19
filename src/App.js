@@ -1,6 +1,5 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import liff from '@line/liff';
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useEffect } from 'react';
 import LiffComponents from './Components/LiffComponent'
@@ -13,7 +12,7 @@ function App(props) {
   const navigator = useNavigate()
   const nameId = new URLSearchParams(search).get(params)
 
-  
+
   useEffect(() => {
     // liffInit();
     if(nameId === 'register') {
@@ -28,15 +27,13 @@ function App(props) {
     }
     // eslint-disable-next-line
   },[])
+
   return (
     <div className="App">
       <h1>Hello, ยินดีต้อนรับนะ :D</h1>
       <h1>{params}</h1>
       <h1>{nameId}</h1>
-      <ThreeDots/>
-      {/* {params === 'controller99-1' ? <DoorComponent/> : <LiffComponents/>} */}
-      {/* <LiffComponents/> */}
-      {/* <Navigation/> */}
+      {params === 'controller99-1' ? <DoorComponent/> : <ThreeDots/>}
     </div>
   );  
 }
