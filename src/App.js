@@ -30,7 +30,7 @@ function App() {
       <h1>{'ชื่อจาก parameter'+ queryParams}</h1>
       <h2>h2 นะ</h2>
 
-      {/* <LiffComponents/> */}
+      <LiffComponents/>
       {/* {params === 'controller99-1' ? <ThreeDots/> : <DoorComponent/>} */}
     </div>
   );  
