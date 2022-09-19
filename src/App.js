@@ -10,33 +10,40 @@ function App(props) {
   let search = useLocation().search;
   const navigator = useNavigate()
 
-  if(params === '?page=register') {
-    navigator('/register')
-  } else if (params === '?page=controller') {
-    return (
+  // if(params === '?page=register') {
+  //   navigator('/register')
+  // } else if (params === '?page=controller') {
+  //   return (
+  //     <div className="App">
+  //       <h1>Hello, ยินดีต้อนรับนะ :D</h1>
+  //       <h1>{'props '+ params}</h1>
+  //       <h1>{'search '+ search}</h1>
+  //       <LiffComponents/>
+  //     </div>
+  //   )
+  // } else if (params === '?page=controller99-1'){
+  //   return <DoorComponent/>
+  // }
+
+
+  useEffect(() => {
+    // liffInit();
+    if(params === '?page=register') {
+      navigator('/register')
+    } else if (params === '?page=controller') {
+      return (
       <div className="App">
-               <h1>Hello, ยินดีต้อนรับนะ :D</h1>
-       <h1>{'props '+ params}</h1>
-  <h1>{'search '+ search}</h1>
+        <h1>Hello, ยินดีต้อนรับนะ :D</h1>
+        <h1>{'props '+ params}</h1>
+        <h1>{'search '+ search}</h1>
         <LiffComponents/>
       </div>
-    )
-  } else if (params === '?page=controller99-1'){
-    return <DoorComponent/>
-  }
-
-
-  // useEffect(() => {
-  //   // liffInit();
-  //   if(params === '?page=register') {
-  //     navigator('/register')
-  //   } else if (params === '?page=controller') {
-  //     return <LiffComponents/>
-  //   } else if (params === '?page=controller99-1'){
-  //     return <DoorComponent/>
-  //   }
-  //   // eslint-disable-next-line
-  // },[])
+      )
+    } else if (params === '?page=controller99-1'){
+      return <DoorComponent/>
+    }
+    // eslint-disable-next-line
+  },[])
 
   // return (
   //   <div className="App">
