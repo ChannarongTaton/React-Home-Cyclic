@@ -3,10 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useEffect } from 'react';
 import LiffComponents from './Components/LiffComponent'
-import Navigation from './Components/Navigation'
+import DoorComponent from './Components/DoorComponent';
 import axios from 'axios';
-
-// import DoorComponent from './Components/DoorComponent';
 // import { ThreeDots } from 'react-loader-spinner'
 function App() {
   let search = useLocation().search;
@@ -28,9 +26,9 @@ function App() {
     if(queryParams === '?page=register') {
       navigator('/register')
     } else if (queryParams === '?page=controller') {
-      navigator('/liff-home')
+      return <LiffComponents/>
     } else if (queryParams === '?page=controller99-1'){
-      navigator('/home2')
+      return <DoorComponent/>
     }
     // eslint-disable-next-line
   },[])
