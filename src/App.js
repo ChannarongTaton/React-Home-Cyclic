@@ -6,6 +6,7 @@ import LiffComponents from './Components/LiffComponent'
 // import Navigation from './Components/Navigation'
 import DoorComponent from './Components/DoorComponent';
 import { ThreeDots } from 'react-loader-spinner'
+import LiffComponent from './Components/LiffComponent';
 function App(props) {
   const { params } = props
   const navigator = useNavigate()
@@ -29,7 +30,10 @@ function App(props) {
   return (
     <div className="App">
       <h1>Hello, ยินดีต้อนรับนะ :D</h1>
-      <h1>{'ชื่อจาก parameter'+params}</h1>
+      <h1>{'ชื่อจาก parameter'+ params}</h1>
+      <h2>h2 นะ</h2>
+      
+      <LiffComponent/>
       {/* {params === 'controller99-1' ? <ThreeDots/> : <DoorComponent/>} */}
     </div>
   );  
