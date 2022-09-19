@@ -2,7 +2,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react';
-// import LiffComponents from './Components/LiffComponent'
+import LiffComponents from './Components/LiffComponent'
 // import Navigation from './Components/Navigation'
 import DoorComponent from './Components/DoorComponent';
 function App(props) {
@@ -29,7 +29,7 @@ function App(props) {
     <div className="App">
       <h1>Hello, ยินดีต้อนรับนะ :D</h1>
       <h1>{params}</h1>
-      <DoorComponent/>
+      {params === 'controller99-1' ? <DoorComponent/> : <LiffComponents/>}
       {/* <LiffComponents/> */}
       {/* <Navigation/> */}
     </div>
