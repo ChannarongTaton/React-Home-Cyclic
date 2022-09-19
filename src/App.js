@@ -1,28 +1,25 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useEffect } from 'react';
 import LiffComponents from './Components/LiffComponent'
 // import Navigation from './Components/Navigation'
 // import DoorComponent from './Components/DoorComponent';
 // import { ThreeDots } from 'react-loader-spinner'
-import LiffComponent from './Components/LiffComponent';
-function App(props) {
-  const { params } = props
+function App() {
+  let search = useLocation().search;
   const navigator = useNavigate()
-  console.log(props);
+  const queryParams = new URLSearchParams(search).get('page')
+  // const { params } = props
 
   useEffect(() => {
     // liffInit();
-    if(params === 'register') {
-      console.log(params);
+    if(queryParams === 'register') {
       navigator('/register')
-    } else if (params === 'controller') {
+    } else if (queryParams === 'controller') {
       navigator('/liff-home')
-      console.log(params);
-    } else if (params === 'controller99-1'){
+    } else if (queryParams === 'controller99-1'){
       navigator('/home2')
-      console.log(params);
     }
     // eslint-disable-next-line
   },[])
@@ -30,7 +27,7 @@ function App(props) {
   return (
     <div className="App">
       <h1>Hello, ยินดีต้อนรับนะ :D</h1>
-      <h1>{'ชื่อจาก parameter'+ params}</h1>
+      <h1>{'ชื่อจาก parameter'+ queryParams}</h1>
       <h2>h2 นะ</h2>
 
       {/* <LiffComponents/> */}
