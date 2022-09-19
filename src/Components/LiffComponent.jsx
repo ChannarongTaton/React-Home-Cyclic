@@ -30,12 +30,6 @@ function LiffComponent() {
                         nickName: '',
                         userStatus:'wait'
                     })
-                    
-                    return (
-                        <LiffContext.Provider value={{linedata, setLineData}}>
-                            <HomeComponents/>
-                        </LiffContext.Provider>
-                    )
                 } else {
                     setLineData({
                         lineName: displayName,
@@ -44,11 +38,6 @@ function LiffComponent() {
                         nickName: '',
                         userStatus:'waitw'
                     })
-                    return (
-                        <LiffContext.Provider value={{linedata, setLineData}}>
-                            <HomeComponents/>
-                        </LiffContext.Provider>
-                    )
                 }
             })
         })
@@ -69,6 +58,12 @@ function LiffComponent() {
         // eslint-disable-next-line
     },[])
 
+
+    return (
+        <LiffContext.Provider value={{linedata, setLineData}}>
+            <HomeComponents/>
+        </LiffContext.Provider>
+    )
 }
 
 export { LiffContext };
