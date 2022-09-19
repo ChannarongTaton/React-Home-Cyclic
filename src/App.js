@@ -4,6 +4,8 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { useEffect } from 'react';
 import LiffComponents from './Components/LiffComponent'
 import Navigation from './Components/Navigation'
+import axios from 'axios';
+
 // import DoorComponent from './Components/DoorComponent';
 // import { ThreeDots } from 'react-loader-spinner'
 function App() {
@@ -12,8 +14,17 @@ function App() {
   const queryParams = new URLSearchParams(search).get('page')
   // const { params } = props
   console.log(queryParams);
+  const fetchData=()=> {
+    axios.get(`${process.env.REACT_APP_API}/Items`)
+    .then(response => {
+      
+    })
+    .catch(err => console.log(err))
+    
+  }
   useEffect(() => {
     // liffInit();
+    fetchData()
     if(queryParams === 'register') {
       navigator('/register')
     } else if (queryParams === 'controller') {
