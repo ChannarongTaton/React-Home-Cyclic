@@ -1,33 +1,27 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import LiffComponents from './Components/LiffComponent'
 import DoorComponent from './Components/DoorComponent';
-// import { ThreeDots } from 'react-loader-spinner'
+import RegisterComponents from './Components/RegisterComponents';
+import ProfileJPG from './assets/profile.jpg'
+import { ThreeDots } from 'react-loader-spinner'
 function App(props) {
   const { params } = props
   let search = useLocation().search;
   const navigator = useNavigate()
 
-  // if(params === '?page=register') {
-  //   navigator('/register')
-  // } else if (params === '?page=controller') {
-  //   return (
-  //     <div className="App">
-  //       <h1>Hello, ยินดีต้อนรับนะ :D</h1>
-  //       <h1>{'props '+ params}</h1>
-  //       <h1>{'search '+ search}</h1>
-  //       <LiffComponents/>
-  //     </div>
-  //   )
-  // } else if (params === '?page=controller99-1'){
-  //   return <DoorComponent/>
-  // }
-
+  const [linedata, setLineData] = useState({
+    lineName: '',
+    userId: '',
+    pictureUrl: ProfileJPG,
+    nickName: '',
+    userStatus: 'wait'
+})
 
   useEffect(() => {
-    // liffInit();
+    // liffLogin() 
     if(params === '?page=register') {
       navigator('/register')
     } else if (params === '?page=controller') {
@@ -41,6 +35,9 @@ function App(props) {
   return (
     <div className="App">
       <h1>Hello, ยินดีต้อนรับนะ :D</h1>
+      {params === '?page=register' ? <RegisterComponents/> : <ThreeDots/>}
+      {params === '?page=controller' ? <LiffComponents/> : <ThreeDots/>}
+      {params === '?page=controller99-1' ? <DoorComponent/> : <ThreeDots/>}
       {/* <h1>{'props '+ params}</h1>
       <h1>{'search '+ search}</h1> */}
       {/* <h2>h2 นะ</h2> */}

@@ -1,13 +1,8 @@
 import '../css/Home.css'
 import {BsLightbulb, BsLightbulbOffFill} from 'react-icons/bs'
-import { useState, useEffect}from 'react'
+import { useState, useEffect }from 'react'
 import axios from 'axios'
 import { RotatingLines, ThreeDots } from 'react-loader-spinner'
-// import { LiffContext } from './LiffComponent'
-// import { useContext } from 'react'
-
-
-
 
 function HomeComponents(props) {
   // eslint-disable-next-line

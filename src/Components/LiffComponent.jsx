@@ -3,7 +3,7 @@ import liff from '@line/liff'
 import { useEffect, useState } from 'react'
 import ProfileJPG from '../assets/profile.jpg'
 import HomeComponents from './HomeComponents'
-const LiffContext = React.createContext();
+
 function LiffComponent() {
     const [linedata, setLineData] = useState({
         lineName: '',
@@ -66,5 +66,4 @@ function LiffComponent() {
     )
 }
 
-export { LiffContext };
 export default LiffComponent

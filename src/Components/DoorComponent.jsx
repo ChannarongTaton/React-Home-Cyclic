@@ -87,7 +87,8 @@ async function getFriend() {
 
   useEffect(() => {
     fetchData()
-    // liffLogin()
+    liffLogin()
+    // eslint-disable-next-line
   },[])
 
   return (
