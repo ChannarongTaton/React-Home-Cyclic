@@ -38,9 +38,9 @@ function App(props) {
       {params === '?page=register' ? <RegisterComponents/> : <ThreeDots/>}
       {params === '?page=controller' ? <LiffComponents/> : <ThreeDots/>}
       {params === '?page=controller99-1' ? <DoorComponent/> : <ThreeDots/>}
-      {/* <h1>{'props '+ params}</h1>
-      <h1>{'search '+ search}</h1> */}
-      {/* <h2>h2 นะ</h2> */}
+      <h1>{params}</h1>
+      {/* <h1>{'search '+ search}</h1> */}
+      {/* <h2>h2 นะ</h2>
       {/* <LiffComponents/> */}
       {/* {params === 'controller99-1' ? <ThreeDots/> : <DoorComponent/>} */}
     </div>
