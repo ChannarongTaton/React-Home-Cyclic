@@ -60,9 +60,9 @@ function LiffComponent() {
 
 
     return (
-        <LiffContext.Provider value={{linedata, setLineData}}>
-            <HomeComponents/>
-        </LiffContext.Provider>
+        // <LiffContext.Provider value={{linedata, setLineData}}>
+            <HomeComponents value={linedata}/>
+        // {/* </LiffContext.Provider> */}
     )
 }
 

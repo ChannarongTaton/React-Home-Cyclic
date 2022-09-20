@@ -3,18 +3,18 @@ import {BsLightbulb, BsLightbulbOffFill} from 'react-icons/bs'
 import { useState, useEffect}from 'react'
 import axios from 'axios'
 import { RotatingLines, ThreeDots } from 'react-loader-spinner'
-import { LiffContext } from './LiffComponent'
-import { useContext } from 'react'
+// import { LiffContext } from './LiffComponent'
+// import { useContext } from 'react'
 
 
 
 
-function HomeComponents() {
+function HomeComponents(props) {
   // eslint-disable-next-line
-  const {linedata, setState} = useContext(LiffContext);
+  // const {linedata, setState} = useContext(LiffContext);
 
   // eslint-disable-next-line
-  const {lineName, userId, pictureUrl} = linedata //ดึงค่าจาก LiffComponents มาจาก useContext
+  const {lineName, userId, pictureUrl} = props.value //ดึงค่าจาก LiffComponents มาจาก useContext
   const [statein, setStateIn] = useState([])  //ดึงข้อมูลจาก api อุปกรณ์มาเก็บไว้เป็น list 0 1 2
   const [loading, setLoading] = useState(false) // Icon loading เมื่อกดจะให้แสดง แล้วเมื่อโหลดเสร็จให้ปิด
   const fetchData=()=> {
