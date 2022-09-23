@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import style from '../css/Door.module.css';
 // import { ThreeDots } from 'react-loader-spinner'
 import axios from 'axios'
-import liff from '@line/liff'
 import ProfileJPG  from '../assets/profile.jpg'
 function DoorComponent() {
 // eslint-disable-next-line
@@ -17,46 +16,6 @@ function DoorComponent() {
 })
 // eslint-disable-next-line
   const {nickName, lineName, userId, pictureUrl, userStatus} = linedata
-  // eslint-disable-next-line
-  const liffLogin = async () => {
-    await liff.init({liffId: process.env.REACT_APP_LIFFID})
-    .catch(err => console.log(err))
-    liff.ready.then(() => {
-        if(!liff.isLoggedIn()){
-            liff.login()
-        }
-        liff.getProfile().then(profile => {
-            let {displayName, userId, pictureUrl} = profile
-            if (pictureUrl === '') {
-                setLineData({
-                    lineName: displayName,
-                    userId: userId,
-                    pictureUrl: ProfileJPG,
-                    nickName: '',
-                    userStatus:'99'
-                })
-            } else {
-                setLineData({
-                    lineName: displayName,
-                    userId: userId,
-                    pictureUrl: pictureUrl,
-                    nickName: '',
-                    userStatus:'99'
-                })
-            }
-        })
-    })
-
-    const isFriend = await getFriend();
-    if(!isFriend) {
-        window.location = 'https://lin.ee/M9Ya7UI'
-    }
-}
-
-async function getFriend() {
-    const friend = await liff.getFriendship()
-    return friend.friendFlag
-}
 
   const fetchData=()=> {
     axios.get(`${process.env.REACT_APP_API}/Item/${3}`)
@@ -87,7 +46,6 @@ async function getFriend() {
 
   useEffect(() => {
     fetchData()
-    liffLogin()
     // eslint-disable-next-line
   },[])
 

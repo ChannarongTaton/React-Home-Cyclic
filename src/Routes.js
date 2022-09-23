@@ -1,17 +1,58 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import App from './App'
 import RegisterComponents from './Components/RegisterComponents'
-import LiffComponent from './Components/LiffComponent'
 import DoorComponent from './Components/DoorComponent'
+import liff from '@line/liff'
+import ProfileJPG from './assets/profile.jpg'
+import { useState, useEffect } from 'react'
+
 const MyRoute=()=> {
-        const queryParams = new URLSearchParams(window.location.search);
-        const params = queryParams.get('liff.state');
+    const [linedata, setLineData] = useState({
+        lineName: '',
+        userId: '',
+        pictureUrl: ProfileJPG,
+        nickName: '',
+        userStatus: 'wait',
+    })
+    const liffLogin= async () => {
+        await liff.init({liffId: process.env.REACT_APP_LIFFID})
+        .catch(err => console.log(err))
+        liff.ready.then(() => {
+            if(!liff.isLoggedIn()){
+                liff.login()
+            }
+            liff.getProfile().then(profile => {
+                let {displayName, userId, pictureUrl} = profile
+                setLineData({
+                    lineName: displayName,
+                    userId: userId,
+                    pictureUrl: pictureUrl,
+                    nickName: '',
+                    userStatus:'wait'
+                })
+            })
+        })
+
+        const isFriend = await getFriend();
+        if(!isFriend) {
+            window.location = 'https://lin.ee/M9Ya7UI'
+        }
+    }
+
+    async function getFriend() {
+        const friend = await liff.getFriendship()
+        return friend.friendFlag
+    }
+    useEffect(() => {
+        liffLogin()
+        //   eslint-disable-next-line
+    },[])
+    // console.log(linedata.lineName + " from Routes")
     return(
         <Router>
             <Routes>
-                <Route path='/' element={<App params={params}/>}/>
+                <Route path='/' element={<App value={linedata}/>}/>
                 <Route path="/register" element={<RegisterComponents/>}/>
-                <Route path="/liff-home" element={<LiffComponent/>}/>
                 <Route path="/home2" element={<DoorComponent/>}/>
             </Routes>
         </Router>
