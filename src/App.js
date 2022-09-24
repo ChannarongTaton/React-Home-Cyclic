@@ -6,16 +6,18 @@ import HomeComponents from './Components/HomeComponents'
 function App(props) {
     const navigate = useNavigate()
     const queryParams = new URLSearchParams(window.location.search)
-
-    if(queryParams == 'register') {
+    // eslint-disable-next-line
+    if(queryParams == 'page=register') {
         navigate('/register')
+    // eslint-disable-next-line
+    } else if(queryParams == 'page=list-users') {
+        navigate('/list-users')
     }
-
     return (
     <div className="App">
-        <h1>Hello, ยินดีต้อนรับนะ :D</h1>
         {queryParams == 'page=MyController' ? <HomeComponents {...props.value}/> : ''}
         {queryParams == 'page=Home2' ? <DoorComponent/> : ''}
+        {/* {queryParams == 'page=Home2' ? <DoorComponent/> : ''} */}
     </div>
     );  
 }

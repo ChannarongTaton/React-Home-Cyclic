@@ -1,8 +1,8 @@
-import '../css/Home.css'
+import style from '../css/Home.module.css'
 import {BsLightbulb, BsLightbulbOffFill} from 'react-icons/bs'
 import { useState, useEffect }from 'react'
 import axios from 'axios'
-import { RotatingLines, ThreeDots } from 'react-loader-spinner'
+import { RotatingLines, Blocks } from 'react-loader-spinner'
 function HomeComponents(props) {
 
 
@@ -18,7 +18,6 @@ function HomeComponents(props) {
     .catch(err => console.log(err))
     
   }
-  console.log(props);
   const trickBtn=(id, active, lineName)=> {
     setLoading(true)
     axios
@@ -38,31 +37,28 @@ function HomeComponents(props) {
   }
 
   useEffect(() => {
-    fetchData()
+    fetchData();
   },[])
 
   return(
-      <div className='HomeDiv'>
+      <div className={style.HomeDiv}>
         <div>
         {loading === false ? statein.map((home, index) => (
-          <div key={index} className='HomeCom'>
+          <div key={index} className={style.HomeCom}>
               <h1>{home.name}</h1>
-              <div onClick={()=>trickBtn(home.id, home.isActive, lineName)} className='button-css'>
-                {loading === false ? (home.isActive === true ? <BsLightbulb className='Icons'/> : <BsLightbulbOffFill className='Icons'/>) : <RotatingLines/>}
+              <div onClick={()=>trickBtn(home.id, home.isActive, lineName)} className={style.button_css}>
+                {loading === false ? (home.isActive === true ? <BsLightbulb className={style.Icons}/> : <BsLightbulbOffFill className={style.Icons}/>) : <RotatingLines/>}
               </div>
               <h5>{home.isActive === true ? 'สถานะ : ปิด' : 'สถานะ : เปิด'}</h5>
               <h5>{"สั่งทำงานโดย : " + home.userActive}</h5>
           </div>
-        )) : <ThreeDots 
-        height="80" 
-        width="80" 
-        radius="9"
-        color="#454A55" 
-        ariaLabel="three-dots-loading"
-        wrapperStyle={{}}
-        wrapperClassName=""
-        visible={true}
-        />}
+        )) : 
+        <div className={style.Circles}>
+          <Blocks visible={true} height="150" width="150"
+          ariaLabel="blocks-loading" wrapperStyle={{}}
+          wrapperClass="blocks-wrapper"/>
+        </div>
+        }
         </div>
       </div>
   )

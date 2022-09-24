@@ -3,6 +3,7 @@ import style from '../css/Door.module.css';
 // import { ThreeDots } from 'react-loader-spinner'
 import axios from 'axios'
 import ProfileJPG  from '../assets/profile.jpg'
+import { Blocks } from 'react-loader-spinner'
 function DoorComponent() {
 // eslint-disable-next-line
   const [loading, setLoading] = useState(false)
@@ -18,6 +19,7 @@ function DoorComponent() {
   const {nickName, lineName, userId, pictureUrl, userStatus} = linedata
 
   const fetchData=()=> {
+    setLoading(true)
     axios.get(`${process.env.REACT_APP_API}/Item/${3}`)
     .then(response => {
       setStateIn(response.data)
@@ -50,12 +52,17 @@ function DoorComponent() {
   },[])
 
   return (
-    <div className={style.settingDoorCom}>
-      <div className={style.DoorCom}>
-        <button onClick={()=>trickBtn(statein.id, statein.isActive, lineName)} className={style.button}>เปิด/ปิด ประตูกดปุ่มนี้</button>
-      </div> 
+    <div>
+      <div className={style.Circles}>
+      </div>
+      <div className={style.settingDoorCom}>
+            <div className={style.DoorCom}>
+          <button onClick={()=>trickBtn(statein.id, statein.isActive, lineName)} className={style.button1}>เปิด/ปิด ประตูกดปุ่มนี้</button>
+            </div> 
         <p>*กดปุ่มเดียว*</p>
+      </div>
     </div>
+
   )
 }
 

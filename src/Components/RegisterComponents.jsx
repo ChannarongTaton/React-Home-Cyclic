@@ -1,47 +1,57 @@
 import React, { useState, useEffect, } from 'react'
 import ProfileJPG from '../assets/profile.jpg'
-import '../css/Register.css'
+import style from '../css/Register.module.css'
 import liff from '@line/liff/dist/lib'
 import axios from 'axios'
-
+import { Blocks, CirclesWithBar } from 'react-loader-spinner'
 function RegisterComponents() {
+
   const [linedata, setLineData] = useState({
     nickName: '',
-    lineName: '',
+    displayName: '',
     userId: '',
     pictureUrl: ProfileJPG,
     userStatus:''
-})
-  const [api, setApi] = useState('')
+  })
 
-  const {nickName, lineName, userId, pictureUrl, userStatus} = linedata
+  const [api, setApi] = useState('')
+  const [loading, setLoading] = useState(false)
+  const {nickName, displayName, userId, pictureUrl, userStatus} = linedata
+  
   const liffLogin= async () => {
+
     await liff.init({liffId: process.env.REACT_APP_LIFFID})
     .catch(err => console.log(err))
+
     liff.ready.then(() => {
         if(!liff.isLoggedIn()){
             liff.login()
         }
+
         liff.getProfile().then(profile => {
             let {displayName, userId, pictureUrl} = profile
+
             if (pictureUrl === '') {
                 setLineData({
-                    lineName: displayName,
+                  displayName: displayName,
                     userId: userId,
                     pictureUrl: ProfileJPG,
                     nickName: '',
                     userStatus:'wait'
                 })
+                setLoading(true)
             } else {
                 setLineData({
-                    lineName: displayName,
+                  displayName: displayName,
                     userId: userId,
                     pictureUrl: pictureUrl,
                     nickName: '',
                     userStatus:'wait'
                 })
+                setLoading(true)
             }
         })
+
     })
 
     const isFriend = await getFriend();
@@ -59,10 +69,12 @@ const inputValue=name=>e=> {
   setLineData({...linedata,[name]:e.target.value})
 }
 
+
 const sendData = (e) => {
   e.preventDefault()
+  setLoading(false)
   axios.post(`${process.env.REACT_APP_API_USER}/create`,
-  { nickName, lineName, userId, pictureUrl, userStatus})
+  { nickName, displayName, userId, pictureUrl, userStatus})
   .then(response => {
     if(response.status === 200) {
       setApi('บันทึกเรียบร้อย')
@@ -80,19 +92,45 @@ useEffect(()=> {
 },[])
   return (
     <div>
-      <div className='container'>
+      <div className={style.Circles}>
+        {loading == true ? '' : <Blocks visible={true} height="150" width="150"
+        ariaLabel="blocks-loading" wrapperStyle={{}}
+        wrapperClass="blocks-wrapper"/> }
+      </div>
+      {loading == false ? '' : <div className={style.container}>
         <h1>{api}</h1>
         <h1 style={{"margin-top": '100px', "margin-bottom": '30px'}}>ใส่ชื่อเล่น</h1>
-        <form className='form' onSubmit={sendData}>
-          <div className='form-control'>
-            <label>ชื่อเล่น</label>
-            <input type="text" value={nickName} onChange={inputValue('nickName')} required/>
-          </div>
-          <button type='submit'>เข้าใช้งาน</button>
-        </form>
-      </div>
+          <form className={style.form} onSubmit={sendData}>
+            <div className={style.form_control}>
+              <label className={style.label}>ชื่อเล่น</label>
+              <input className={style.input} type="text" value={nickName} onChange={inputValue('nickName')} required/>
+            </div>
+            <button type='submit'>เข้าใช้งาน</button>
+          </form>
+      </div>}
     </div>
   )
+  // return (
+  //   <div>
+  //     <Blocks className={style.Circles} visible={true} height="80" width="80"
+  //     ariaLabel="blocks-loading" wrapperStyle={{}} wrapperClass="blocks-wrapper"/>
+  //     <div>
+  //     {loading == false ? <Blocks visible={true} height="80" width="80"
+  //     ariaLabel="blocks-loading" wrapperStyle={{}} wrapperClass="blocks-wrapper"/> :
+  //     <div className={style.container}>
+  //       <h1>{api}</h1>
+  //       <h1 style={{"margin-top": '100px', "margin-bottom": '30px'}}>ใส่ชื่อเล่น</h1>
+  //         <form className={style.form} onSubmit={sendData}>
+  //           <div className={style.form_control}>
+  //             <label className={style.label}>ชื่อเล่น</label>
+  //             <input className={style.input} type="text" value={nickName} onChange={inputValue('nickName')} required/>
+  //           </div>
+  //           <button type='submit'>เข้าใช้งาน</button>
+  //         </form>
+  //     </div>}
+  //     </div>
+  //   </div>
+  // )
 }
 
 export default RegisterComponents

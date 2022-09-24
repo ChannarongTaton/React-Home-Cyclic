@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { FaBars, FaWindowClose } from "react-icons/fa";
 import { useState } from 'react';
 import ListMenu from '../Data/ListMenu';
-import '../css/Navigation.css'
+import '../css/Navigation.module.css'
 function Navigation() {
     const [showmenu, setShowMenu] = useState(false)
     const toggleMenu=()=>setShowMenu(!showmenu)

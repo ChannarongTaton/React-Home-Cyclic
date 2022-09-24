@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import App from './App'
 import RegisterComponents from './Components/RegisterComponents'
 import DoorComponent from './Components/DoorComponent'
+import ListUserComponent from './Components/ListUserComponent'
 import liff from '@line/liff'
 import ProfileJPG from './assets/profile.jpg'
 import { useState, useEffect } from 'react'
@@ -49,13 +50,16 @@ const MyRoute=()=> {
     },[])
     // console.log(linedata.lineName + " from Routes")
     return(
-        <Router>
-            <Routes>
-                <Route path='/' element={<App value={linedata}/>}/>
-                <Route path="/register" element={<RegisterComponents/>}/>
-                <Route path="/home2" element={<DoorComponent/>}/>
-            </Routes>
-        </Router>
+        <div>
+            <Router>
+                <Routes>
+                    <Route path='/' element={<App value={linedata}/>}/>
+                    <Route path="/register" element={<RegisterComponents/>}/>
+                    <Route path="/home2" element={<DoorComponent/>}/>
+                    <Route path="/list-users" element={<ListUserComponent/>}/>
+                </Routes>
+            </Router>
+        </div>
     )
 }
 
