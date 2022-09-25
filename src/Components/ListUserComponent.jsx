@@ -72,8 +72,8 @@ function ListUserComponent() {
                         <td>{user.userStatus}</td>
                         <td className={style.Icons_table}>
                             {user.userStatus === 'wait' ? <BiUserCheck onClick={
-                            ()=>trickBtnOn(user.userStatus , user.userId)}/> : <BiUserMinus onClick={
-                                ()=>trickBtnOff(user.userStatus , user.userId)}/>}
+                            ()=>trickBtnOn("Active" , user.userId)}/> : <BiUserMinus onClick={
+                                ()=>trickBtnOff("Load" , user.userId)}/>}
                             <MdInfo/>
                         </td>
                     </tr>
