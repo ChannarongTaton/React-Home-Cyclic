@@ -80,8 +80,6 @@ function ListUserComponent() {
                     </tr>
                 </tbody>
             </table>
-            <p>{user.userStatus}</p>
-            <p>{user.userId}</p>
         </div>
         )) :
         <div className={style.Circles}>
