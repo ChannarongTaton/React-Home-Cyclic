@@ -19,29 +19,29 @@ function ListUserComponent() {
     }
 
     const trickBtnOn=(userStatus, userId)=> {
-        setLoading(false)
+        setLoading(true)
         axios
         .put(`${process.env.REACT_APP_API_USER}/userActive/${userId}`,{userStatus})
         .then(response => {
         if (response.status === 200) {
             setTimeout(() => {
             fetchData()
-            setLoading(true)
             }, 500);
         }
+        setLoading(false)
         })
         .catch(err => console.log(err))
     }
 
     const trickBtnOff=(userStatus, userId)=> {
-        setLoading(false)
+        setLoading(true)
         axios
         .put(`${process.env.REACT_APP_API_USER}/userLoad/${userId}`,{userStatus})
         .then(response => {
         if (response.status === 200) {
             setTimeout(() => {
             fetchData()
-            setLoading(true)
+            setLoading(false)
             }, 500);
         }
         })
