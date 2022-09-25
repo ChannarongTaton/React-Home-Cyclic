@@ -1,91 +1,93 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import '../css/List.module.css'
+import style from '../css/List.module.css'
+import { BiUserCheck, BiUserMinus } from 'react-icons/bi'
+import { MdInfo } from 'react-icons/md'
+import { Blocks } from 'react-loader-spinner'
 function ListUserComponent() {
 
     const [statein, setStateIn] = useState([])
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     const fetchData=()=> {
         axios.get(`${process.env.REACT_APP_API_USER}/users`)
         .then(response => {
-            console.log(response.data)  
         setStateIn(response.data)
+        setLoading(false);
         })
         .catch(err => console.log(err))
-        
     }
 
-    const trickBtn=(id, active, lineName)=> {
-        setLoading(true)
+    const trickBtnOn=(userStatus, userId)=> {
+        setLoading(false)
         axios
-        .put(`${process.env.REACT_APP_API}/Change-state/${id}`,{active, lineName})
+        .put(`${process.env.REACT_APP_API_USER}/userActive/${userId}`,{userStatus})
         .then(response => {
-          console.log(response.data.isActive);
-          if (response.status === 200) {
+        if (response.status === 200) {
             setTimeout(() => {
-              fetchData()
-              setLoading(false)
-            }, 500);
-          } else {
+            fetchData()
             setLoading(true)
-          }
+            }, 500);
+        }
         })
         .catch(err => console.log(err))
-      }
+    }
+
+    const trickBtnOff=(userStatus, userId)=> {
+        setLoading(false)
+        axios
+        .put(`${process.env.REACT_APP_API_USER}/userLoad/${userId}`,{userStatus})
+        .then(response => {
+        if (response.status === 200) {
+            setTimeout(() => {
+            fetchData()
+            setLoading(true)
+            }, 500);
+        }
+        })
+        .catch(err => console.log(err))
+    }
     useEffect(() => {
-        // fetchData()
+        fetchData()
     },[])
 
     return (
-    <div className='container-md'>
-        <h2>จัดการสมาชิก</h2>
-        <div className='justify-conten-center'>
+    <div className='container-sm'>
+        {loading === false ?  statein.map((user, index) => (
+            <div className='justify-conten-center'>
+            <h2 className={style.container} >จัดการสมาชิก</h2>    
             <table className="table table-striped">
                 <thead>
                     <tr>
-                        <th><h3>#</h3></th>
-                        <th><h3>ชื่อเล่น</h3></th>
-                        <th><h3>สถานะ</h3></th>
-                        <th><h3>การกำหนด</h3></th>
+                        <th><h2>#</h2></th>
+                        <th><h2>ชื่อเล่น</h2></th>
+                        <th><h2>สถานะ</h2></th>
+                        <th><h2>การกำหนด</h2></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{1}</td>
-                        <td>ต้น</td>
-                        <td>wait</td>
-                        <td>
-                            <button>Active</button>
+                        <td>{index+1}</td>
+                        <td>{user.nickName}</td>
+                        <td>{user.userStatus}</td>
+                        <td className={style.Icons_table}>
+                            {user.userStatus === 'wait' ? <BiUserCheck onClick={
+                            ()=>trickBtnOn(user.userStatus , user.userId)}/> : <BiUserMinus onClick={
+                                ()=>trickBtnOff(user.userStatus , user.userId)}/>}
+                            <MdInfo/>
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <p>{user.userStatus}</p>
+            <p>{user.userId}</p>
         </div>
-        {/* { statein.map((user, index) => (
-            <div key={index} className="table">
-                <table className="border-collapse border border-slate-500">
-                    <thead>
-                        <tr>
-                            <th className='border border-slate-600'><h3>ลำดับ</h3></th>
-                            <th className='border border-slate-600'><h3>ชื่อเล่น</h3></th>
-                            <th className='border border-slate-600'><h3>สถานะ</h3></th>
-                            <th className='border border-slate-600'><h3>จัดการ</h3></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td className='border border-slate-700'>{index+1}</td>
-                            <td className='border border-slate-700'>{user.nickName}</td>
-                            <td className='border border-slate-700'>{user.userStatus}</td>
-                            <td className='border border-slate-700'>ปุ่มนะ</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        ))
-
-        } */}
+        )) :
+        <div className={style.Circles}>
+            <Blocks visible={true} height="150" width="150"
+            ariaLabel="blocks-loading" wrapperStyle={{}}
+            wrapperClass="blocks-wrapper"/>
+        </div>}
     </div>
     )
 }

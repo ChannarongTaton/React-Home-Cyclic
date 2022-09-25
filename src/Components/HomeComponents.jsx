@@ -23,7 +23,6 @@ function HomeComponents(props) {
     axios
     .put(`${process.env.REACT_APP_API}/Change-state/${id}`,{active, lineName})
     .then(response => {
-      console.log(response.data.isActive);
       if (response.status === 200) {
         setTimeout(() => {
           fetchData()

@@ -1,0 +1,26 @@
+.container{
+    text-align: center;
+    justify-items: center;
+}
+
+table {
+    text-align: center;
+    border-collapse: collapse;    
+}
+
+tr {
+    font-size: 20px;
+}
+
+.Icons_table {
+    display: flex;
+    font-size: 33px;
+    justify-content: space-evenly   ;
+}
+
+.Circles {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 207px;
+}

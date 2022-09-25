@@ -23,17 +23,15 @@ function DoorComponent() {
     axios.get(`${process.env.REACT_APP_API}/Item/${3}`)
     .then(response => {
       setStateIn(response.data)
-      console.log(response.data);
     })
     .catch(err => console.log(err))
-    
   }
+  
   const trickBtn=(id, active, lineName)=> {
     setLoading(true)
     axios
     .put(`${process.env.REACT_APP_API}/Change-state/${id}`,{active, lineName})
     .then(response => {
-      console.log(response.data.isActive);
       if (response.status === 200) {
         setTimeout(() => {
           fetchData()
