@@ -53,10 +53,9 @@ function ListUserComponent() {
 
     return (
     <div className='container-sm'>
-        {loading === false ?  statein.map((user, index) => (
-            <div className='justify-conten-center'>
-            <h2 className={style.container} >จัดการสมาชิก</h2>    
-            <table className="table table-striped">
+        <h2 className={style.container} >จัดการสมาชิก</h2>
+        <div className='justify-conten-center'> 
+           <table className="table table-striped">
                 <thead>
                     <tr>
                         <th><h2>#</h2></th>
@@ -65,28 +64,31 @@ function ListUserComponent() {
                         <th><h2>การกำหนด</h2></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>{index+1}</td>
-                        <td>{user.nickName}</td>
-                        <td>{user.userStatus}</td>
-                        <td className={style.Icons_table}>
-                            <BiUserCheck onClick={
-                            ()=>trickBtnOn("99" , user.userId)}/>
-                            <BiUserMinus onClick={
-                                ()=>trickBtnOff("99/1" , user.userId)}/>
-                            <MdInfo/>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        )) :
+                {loading === false ? statein.map((user, index) => (
+             <tbody>
+<tr>
+<td>{index+1}</td>
+    <td>{user.nickName}</td>
+    <td>{user.userStatus}</td>
+    <td className={style.Icons_table}>
+        <BiUserCheck onClick={
+        ()=>trickBtnOn("99" , user.userId)}/>
+        <BiUserMinus onClick={
+            ()=>trickBtnOff("99/1" , user.userId)}/>
+        <MdInfo/>
+    </td>
+</tr>
+</tbody>
+        ))      
+
+        :
         <div className={style.Circles}>
             <Blocks visible={true} height="150" width="150"
             ariaLabel="blocks-loading" wrapperStyle={{}}
             wrapperClass="blocks-wrapper"/>
         </div>}
+        </table>
+        </div>
     </div>
     )
 }
