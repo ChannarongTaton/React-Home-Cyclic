@@ -25,7 +25,7 @@ function HomeComponents(props) {
     .then(response => {
       if (response.status === 200) {
         setTimeout(() => {
-          fetchData()
+          fetchData();
           setLoading(false)
         }, 500);
       } else {
@@ -43,13 +43,15 @@ function HomeComponents(props) {
       <div className={style.HomeDiv}>
         <div>
         {loading === false ? statein.map((home, index) => (
-          <div key={index} className={style.HomeCom}>
+          <div>
+            <div key={index} className={style.HomeCom}>
               <h1>{home.name}</h1>
               <div onClick={()=>trickBtn(home.id, home.isActive, lineName)} className={style.button_css}>
-                {loading === false ? (home.isActive === true ? <BsLightbulb className={style.Icons}/> : <BsLightbulbOffFill className={style.Icons}/>) : <RotatingLines/>}
+              {loading === false ? home.id == 3 ? "สั่งประตูทำงาน" : (home.isActive === true ? <BsLightbulb className={style.Icons}/> : <BsLightbulbOffFill className={style.Icons}/>) : <RotatingLines/>}
               </div>
-              <h5>{home.isActive === true ? 'สถานะ : ปิด' : 'สถานะ : เปิด'}</h5>
+              <h5>{home.id == 3 ? "" : home.isActive === true ? 'สถานะ : ปิด' : 'สถานะ : เปิด'}</h5>
               <h5>{"สั่งทำงานโดย : " + home.userActive}</h5>
+            </div>
           </div>
         )) : 
         <div className={style.Circles}>
