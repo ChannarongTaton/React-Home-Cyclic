@@ -45,7 +45,7 @@ const MyRoute=()=> {
         return friend.friendFlag
     }
     useEffect(() => {
-        // liffLogin()
+        liffLogin()
         //   eslint-disable-next-line
     },[])
     // console.log(linedata.lineName + " from Routes")
