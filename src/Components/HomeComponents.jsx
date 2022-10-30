@@ -18,10 +18,10 @@ function HomeComponents(props) {
     .catch(err => console.log(err))
     
   }
-  const trickBtn=(id, active, lineName)=> {
+  const trickBtn=(id, active, lineName, homeName)=> {
     setLoading(true)
     axios
-    .put(`${process.env.REACT_APP_API}/Change-state/${id}`,{active, lineName})
+    .put(`${process.env.REACT_APP_API}/Change-state/${id}`,{active, lineName, homeName})
     .then(response => {
       if (response.status === 200) {
         setTimeout(() => {
@@ -46,7 +46,7 @@ function HomeComponents(props) {
           <div>
             <div key={index} className={style.HomeCom}>
               <h1>{home.name}</h1>
-              <div onClick={()=>trickBtn(home.id, home.isActive, lineName)} className={style.button_css}>
+              <div onClick={()=>trickBtn(home.id, home.isActive, lineName, home.name)} className={style.button_css}>
               {loading === false ? home.id == 3 ? "สั่งประตูทำงาน" : (home.isActive === true ? <BsLightbulb className={style.Icons}/> : <BsLightbulbOffFill className={style.Icons}/>) : <RotatingLines/>}
               </div>
               <h5>{home.id == 3 ? "" : home.isActive === true ? 'สถานะ : ปิด' : 'สถานะ : เปิด'}</h5>
