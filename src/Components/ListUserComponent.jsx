@@ -4,6 +4,7 @@ import style from '../css/List.module.css'
 import { BiUserCheck, BiUserMinus } from 'react-icons/bi'
 import { MdInfo } from 'react-icons/md'
 import { Blocks } from 'react-loader-spinner'
+import { Link } from 'react-router-dom'
 function ListUserComponent() {
 
     const [statein, setStateIn] = useState([])
@@ -26,7 +27,7 @@ function ListUserComponent() {
         if (response.status === 200) {
             setTimeout(() => {
             fetchData()
-            }, 500);
+            }, 1000);
         }
         setLoading(false)
         })
@@ -42,7 +43,7 @@ function ListUserComponent() {
             setTimeout(() => {
             fetchData()
             setLoading(false)
-            }, 500);
+            }, 1000);
         }
         })
         .catch(err => console.log(err))
@@ -53,44 +54,52 @@ function ListUserComponent() {
 
     return (
     <div className='container-sm'>
-        <h2 className={style.container} >จัดการสมาชิก</h2>
-        <div className='justify-conten-center'> 
-           <table className="table table-striped">
-                <thead>
-                    <tr>
-                        <th><h2>#</h2></th>
-                        <th><h2>ชื่อเล่น</h2></th>
-                        <th><h2>สถานะ</h2></th>
-                        <th><h2>การกำหนด</h2></th>
-                    </tr>
-                </thead>
-                {loading === false ? statein.map((user, index) => (
-             <tbody>
-<tr>
-<td>{index+1}</td>
-    <td>{user.nickName}</td>
-    <td>{user.userStatus}</td>
-    <td className={style.Icons_table}>
-        <BiUserCheck onClick={
-        ()=>trickBtnOn("99" , user.userId)}/>
-        <BiUserMinus onClick={
-            ()=>trickBtnOff("99/1" , user.userId)}/>
-        <MdInfo/>
-    </td>
-</tr>
-</tbody>
-        ))      
-
-        :
-        <div className={style.Circles}>
-            <Blocks visible={true} height="150" width="150"
-            ariaLabel="blocks-loading" wrapperStyle={{}}
-            wrapperClass="blocks-wrapper"/>
-        </div>}
-        </table>
+        <div className='justify-conten-center'>
+            {loading === false ?
+            <div>
+                <h2 className={style.container} >จัดการสมาชิก</h2>
+        <table className="table table-striped">
+            <thead>
+                <tr>
+                    <th><h2>#</h2></th>
+                    <th><h2>ชื่อเล่น</h2></th>
+                    <th><h2>บ้านเลขที่</h2></th>
+                    <th><h2>การกำหนด</h2></th>
+                </tr>
+            </thead>
+            {
+                statein.map((user, index) => (
+                    <tbody>
+                        <tr>
+                            <td>{index+1}</td>
+                            <td>{user.nickName}</td>
+                            <td>{user.userStatus}</td>
+                            <td className={style.Icons_table}>
+                                <BiUserCheck onClick={
+                                ()=>trickBtnOn("99" , user.userId)}/>
+                                <BiUserMinus onClick={
+                                    ()=>trickBtnOff("99/1" , user.userId)}/>
+                                <div>
+                                <Link className={style.Icons_table} to={{pathname: `/user/${user.userId}`}}><MdInfo/></Link>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                ))
+            }
+            </table>
+            </div> :
+                <div className={style.Circles}>
+                <Blocks visible={true} height="150" width="150"
+                ariaLabel="blocks-loading" wrapperStyle={{}}
+                wrapperClass="blocks-wrapper"/>
+                </div> 
+    }
         </div>
     </div>
     )
 }
+
+
 
 export default ListUserComponent

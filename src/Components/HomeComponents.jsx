@@ -16,7 +16,6 @@ function HomeComponents(props) {
       setStateIn(response.data)
     })
     .catch(err => console.log(err))
-    
   }
   const trickBtn=(id, active, lineName, homeName)=> {
     setLoading(true)

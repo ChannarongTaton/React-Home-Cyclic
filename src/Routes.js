@@ -3,6 +3,7 @@ import App from './App'
 import RegisterComponents from './Components/RegisterComponents'
 import DoorComponent from './Components/DoorComponent'
 import ListUserComponent from './Components/ListUserComponent'
+import ProfileComponent from './Components/ProfileComponent'
 import liff from '@line/liff'
 import ProfileJPG from './assets/profile.jpg'
 import { useState, useEffect } from 'react'
@@ -57,6 +58,7 @@ const MyRoute=()=> {
                     <Route path="/register" element={<RegisterComponents/>}/>
                     <Route path="/home2" element={<DoorComponent/>}/>
                     <Route path="/list-users" element={<ListUserComponent/>}/>
+                    <Route path="/user/:userId" element={<ProfileComponent/>}/>
                 </Routes>
             </Router>
         </div>
