@@ -15,6 +15,8 @@ tr {
 .Icons_table {
     display: flex;
     font-size: 33px;
+    margin: 0px;
+    padding: 0px;
     justify-content: space-evenly;
     color: #000000;
 }
