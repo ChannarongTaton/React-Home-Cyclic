@@ -3,7 +3,8 @@ import style from '../css/Door.module.css';
 // import { ThreeDots } from 'react-loader-spinner'
 import axios from 'axios'
 import ProfileJPG  from '../assets/profile.jpg'
-import { Blocks } from 'react-loader-spinner'
+import { ProgressBar } from 'react-loader-spinner'
+
 function DoorComponent(props) {
 // eslint-disable-next-line
 const {lineName, userId, pictureUrl} = props //ดึงค่าจาก LiffComponents มาจาก useContext
@@ -24,6 +25,7 @@ const {lineName, userId, pictureUrl} = props //ดึงค่าจาก LiffC
     axios.get(`${process.env.REACT_APP_API}/Item/${3}`)
     .then(response => {
       setStateIn(response.data)
+      setLoading(false)
     })
     .catch(err => console.log(err))
   }
@@ -34,10 +36,8 @@ const {lineName, userId, pictureUrl} = props //ดึงค่าจาก LiffC
     .put(`${process.env.REACT_APP_API}/Change-state/${id}`,{active, lineName, homeName})
     .then(response => {
       if (response.status === 200) {
-        setTimeout(() => {
-          fetchData()
-          setLoading(false)
-        }, 500);
+        fetchData();
+        setLoading(false)
       } else {
         setLoading(true)
       }
@@ -52,14 +52,28 @@ const {lineName, userId, pictureUrl} = props //ดึงค่าจาก LiffC
 
   return (
     <div>
-      <div className={style.Circles}>
-      </div>
+      {loading === false ? 
       <div className={style.settingDoorCom}>
             <div className={style.DoorCom}>
-          <button onClick={()=>trickBtn(statein.id, statein.isActive, lineName, homeName)} className={style.button1}>เปิด/ปิด ประตูกดปุ่มนี้</button>
+              <button onClick={()=>trickBtn(statein.id, statein.isActive, lineName, homeName)} className={style.button1}>เปิด/ปิด ประตูกดปุ่มนี้</button>
             </div> 
         <p>*กดปุ่มเดียว*</p>
-      </div>
+      </div> 
+      : 
+      <div className="container d-flex justify-content-center mt-5">
+        <div style={{padding: "50%"}}>
+          <h1>กำลังโหลด..</h1>&nbsp;
+          <ProgressBar
+          height="150"
+          width="150"
+          ariaLabel="progress-bar-loading"
+          wrapperStyle={{}}
+          wrapperClass="progress-bar-wrapper"
+          borderColor = '#000000'
+          barColor = '#3385ff'
+          />
+          </div>
+      </div>}
     </div>
 
   )
