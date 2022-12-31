@@ -16,7 +16,7 @@ function App(props) {
     return (
     <div className="App">
         {queryParams == 'page=MyController' ? <HomeComponents {...props.value}/> : ''}
-        {queryParams == 'page=Home2' ? <DoorComponent/> : ''}
+        {queryParams == 'page=Home2' ? <DoorComponent {...props.value}/> : ''}
         {/* {queryParams == 'page=Home2' ? <DoorComponent/> : ''} */}
     </div>
     );  

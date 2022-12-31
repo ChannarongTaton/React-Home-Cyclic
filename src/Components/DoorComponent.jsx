@@ -4,8 +4,9 @@ import style from '../css/Door.module.css';
 import axios from 'axios'
 import ProfileJPG  from '../assets/profile.jpg'
 import { Blocks } from 'react-loader-spinner'
-function DoorComponent() {
+function DoorComponent(props) {
 // eslint-disable-next-line
+const {lineName, userId, pictureUrl} = props //ดึงค่าจาก LiffComponents มาจาก useContext
   const [loading, setLoading] = useState(false)
   const [statein, setStateIn] = useState([])
   const [linedata, setLineData] = useState({
@@ -16,8 +17,8 @@ function DoorComponent() {
     userStatus:''
 })
 // eslint-disable-next-line
-  const {nickName, lineName, userId, pictureUrl, userStatus} = linedata
-
+  // const {nickName, lineName, userId, pictureUrl, userStatus} = linedata
+  var homeName = 'ประตู'
   const fetchData=()=> {
     setLoading(true)
     axios.get(`${process.env.REACT_APP_API}/Item/${3}`)
@@ -30,7 +31,7 @@ function DoorComponent() {
   const trickBtn=(id, active, lineName)=> {
     setLoading(true)
     axios
-    .put(`${process.env.REACT_APP_API}/Change-state/${id}`,{active, lineName})
+    .put(`${process.env.REACT_APP_API}/Change-state/${id}`,{active, lineName, homeName})
     .then(response => {
       if (response.status === 200) {
         setTimeout(() => {
@@ -55,7 +56,7 @@ function DoorComponent() {
       </div>
       <div className={style.settingDoorCom}>
             <div className={style.DoorCom}>
-          <button onClick={()=>trickBtn(statein.id, statein.isActive, lineName)} className={style.button1}>เปิด/ปิด ประตูกดปุ่มนี้</button>
+          <button onClick={()=>trickBtn(statein.id, statein.isActive, lineName, homeName)} className={style.button1}>เปิด/ปิด ประตูกดปุ่มนี้</button>
             </div> 
         <p>*กดปุ่มเดียว*</p>
       </div>
