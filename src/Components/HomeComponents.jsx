@@ -56,17 +56,17 @@ function HomeComponents(props) {
         </div>
         )) : 
         <div className="container d-flex justify-content-center mt-5">
-        <div style={{"padding-top": '60%'}}>
-          <h1>กำลังโหลด..</h1>&nbsp;
-          <ProgressBar
-          height="150"
-          width="150"
-          ariaLabel="progress-bar-loading"
-          wrapperStyle={{}}
-          wrapperClass="progress-bar-wrapper"
-          borderColor = '#000000'
-          barColor = '#3385ff'
-          />
+          <div style={{"padding-top": '60%'}}>
+            <h1>กำลังโหลด..</h1>&nbsp;
+            <ProgressBar
+            height="150"
+            width="150"
+            ariaLabel="progress-bar-loading"
+            wrapperStyle={{}}
+            wrapperClass="progress-bar-wrapper"
+            borderColor = '#000000'
+            barColor = '#3385ff'
+            />
           </div>
       </div>
       }

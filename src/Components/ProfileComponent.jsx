@@ -8,6 +8,7 @@ function ProfileComponent() {
     let { userId } = useParams()
     const [user, setUser] = useState('')
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
     const {displayName, pictureUrl} = user
     const fetchData=()=> {
         axios
@@ -17,7 +18,7 @@ function ProfileComponent() {
         })
         .catch(err=>alert(err))
     }
-    const updateUser=()=> {
+    const UpdateUser=()=> {
         setLoading(true)
         axios.put(`${process.env.REACT_APP_API_USER}/userUpdate/${userId}`,{displayName, pictureUrl})
         .then(response => {
@@ -34,20 +35,88 @@ function ProfileComponent() {
             alert(err)
         })
     }
+    const UpdateAdmin=(userStatus, userId)=> {
+        setLoading(true)
+        axios.put(`${process.env.REACT_APP_API_USER}/RichMenuHome/0/${userId}`, {userStatus})
+        .then(response => {
+            if (response.status === 200) {
+                setTimeout(() => {
+                    fetchData()
+                }, 1000);
+            }
+            setLoading(true)
+        })
+        .catch(err => console.log(err))
+    }
+
+    const UpdateMainHome=(userStatus, userId)=> {
+        setLoading(true)
+        axios
+        .put(`${process.env.REACT_APP_API_USER}/RichMenuHome/1/${userId}`,{userStatus})
+        .then(response => {
+        if (response.status === 200) {
+            setTimeout(() => {
+            fetchData()
+            }, 1000);
+        }
+        setLoading(false)
+        })
+        .catch(err => {
+            setError(err.response.data.error)
+            setLoading(false)
+            console.log(err)
+        })
+    }
+
+    const UpdateSubHome=(userStatus, userId)=> {
+        setLoading(true)
+        axios
+        .put(`${process.env.REACT_APP_API_USER}/RichMenuHome/2/${userId}`,{userStatus})
+        .then(response => {
+        if (response.status === 200) {
+            setTimeout(() => {
+            fetchData()
+            setLoading(false)
+            }, 1000);
+        }
+        
+        })
+        .catch(err => {
+            setLoading(false)
+            setError(err.response.data.error)
+        })
+    }
+
+    const setUserToWait=(userStatus, userId) => {
+        setLoading(true)
+        axios.put(`${process.env.REACT_APP_API_USER}/userUnlink/${userId}`,{userStatus})
+        .then(response => {
+            if (response.status === 200) {
+                setLoading(false)
+                fetchData()
+            }
+        })
+        .catch(err => {
+            setLoading(false)
+            setError(err.response.data.error)
+        })
+    }
     useEffect(() => {
         fetchData()
         // eslint-disable-next-line
     },[])
     return (
         <div className="container d-flex justify-content-center mt-5">
-            {loading === false ? <div className={style.card}>
+            {loading === false ?
+            <div className={style.card}>
             <Link to="/list-users">ย้อนกลับ</Link>
             <div classNameName={style.topContainer}>
-                
+                {console.log(user)}
                 <img alt='โปรไฟล์' src={user.pictureUrl} className={style.profileImage} width="70"/>
                 
                 <div className="ml-3">
                     <h5 className={style.name}>{user.displayName}</h5>
+                    <span className={style.mail}>{user.nickName}</span>
                     <p className={style.mail}>{user.userId}</p>
                 </div>
             </div>
@@ -67,11 +136,32 @@ function ProfileComponent() {
                     <span className={style.fashionStudio}>บ้านเลขที่ : {user.userStatus}</span>
                 </div>
             </div>
-            <button className='btn btn-success' onClick={()=>updateUser()}>อัพเดทโปรไฟล์</button>
+            <h3>{error}</h3>
+                <div className='row justify-content-md-center'>
+                    <div className='col-4 col-md-4'>
+                    <button className='btn btn-outline-primary' onClick={()=>UpdateAdmin("Admin", user.userId)}>ตั้งเป็น Admin</button>
+                    </div>
+                    
+                    <div className='col-4 col-md-4'>
+                    <button className='btn btn-outline-warning' onClick={()=>UpdateMainHome("99" , user.userId)}>ตั้งเป็นบ้าน 99</button>
+                    </div>
+                </div>
+                <div className='row justify-content-md-center pt-3'>
+                    <div className='col col-lg-2'>
+                        <button className='btn btn-outline-info' onClick={()=>UpdateSubHome("99/1" , user.userId)}>ตั้งเป็นบ้าน 99/1</button>
+                    </div>
+                    
+                    <div className='col col-md-2'>
+                        <button className='btn btn-outline-secondary' onClick={()=>setUserToWait("รอ" , user.userId)}>ตั้งเป็น รอ</button>
+                    </div>
+                    <div className='col col-lg-2'>
+                        <button className='btn btn-outline-success' onClick={()=>UpdateUser()}>อัพเดทโปรไฟล์</button>
+                    </div>
+                </div>
             </div> 
             :
             <div className={style.Circles}>
-            <h1>กำลังโหลด..</h1>&nbsp;
+            {loading === false ? <h1>กำลังโหลด..</h1> : error}
             <ProgressBar
             height="150"
             width="150"

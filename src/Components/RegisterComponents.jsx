@@ -76,6 +76,7 @@ const sendData = (e) => {
   axios.post(`${process.env.REACT_APP_API_USER}/create`,
   { nickName, displayName, userId, pictureUrl, userStatus})
   .then(response => {
+    setLoading(false)
     if(response.status === 200) {
       setApi('บันทึกเรียบร้อย')
       liff.closeWindow()
@@ -83,6 +84,7 @@ const sendData = (e) => {
   })
   .catch(err => {
     setApi(err)
+    setLoading(false)
   })
 }
 
@@ -110,27 +112,6 @@ useEffect(()=> {
       </div>}
     </div>
   )
-  // return (
-  //   <div>
-  //     <Blocks className={style.Circles} visible={true} height="80" width="80"
-  //     ariaLabel="blocks-loading" wrapperStyle={{}} wrapperClass="blocks-wrapper"/>
-  //     <div>
-  //     {loading == false ? <Blocks visible={true} height="80" width="80"
-  //     ariaLabel="blocks-loading" wrapperStyle={{}} wrapperClass="blocks-wrapper"/> :
-  //     <div className={style.container}>
-  //       <h1>{api}</h1>
-  //       <h1 style={{"margin-top": '100px', "margin-bottom": '30px'}}>ใส่ชื่อเล่น</h1>
-  //         <form className={style.form} onSubmit={sendData}>
-  //           <div className={style.form_control}>
-  //             <label className={style.label}>ชื่อเล่น</label>
-  //             <input className={style.input} type="text" value={nickName} onChange={inputValue('nickName')} required/>
-  //           </div>
-  //           <button type='submit'>เข้าใช้งาน</button>
-  //         </form>
-  //     </div>}
-  //     </div>
-  //   </div>
-  // )
 }
 
 export default RegisterComponents

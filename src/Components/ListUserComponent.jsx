@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import style from '../css/List.module.css'
-import { BiUserCheck, BiUserMinus, BiUser } from 'react-icons/bi'
-import { MdInfo } from 'react-icons/md'
-import { Blocks } from 'react-loader-spinner'
+import { TbEdit } from 'react-icons/tb'
+import { ProgressBar } from 'react-loader-spinner'
 import { Link } from 'react-router-dom'
+
 
 function ListUserComponent() {
 
     const [statein, setStateIn] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [error, serError] = useState('')
+    const [loading, setLoading] = useState(false)
     const fetchData=()=> {
+        setLoading(true);
         axios.get(`${process.env.REACT_APP_API_USER}/users`)
         .then(response => {
         setStateIn(response.data)
@@ -19,68 +19,15 @@ function ListUserComponent() {
         })
         .catch(err => console.log(err))
     }
-
-    const updateAdmin=(userStatus, userId)=> {
-        setLoading(true)
-        axios.put(`${process.env.REACT_APP_API_USER}/RichMenuHome/0/${userId}`, {userStatus})
-        .then(response => {
-            if (response.status === 200) {
-                setTimeout(() => {
-                    fetchData()
-                }, 1000);
-            }
-            setLoading(true)
-        })
-        .catch(err => console.log(err))
-    }
-
-    const trickBtnOn=(userStatus, userId)=> {
-        setLoading(true)
-        axios
-        .put(`${process.env.REACT_APP_API_USER}/RichMenuHome/1/${userId}`,{userStatus})
-        .then(response => {
-        if (response.status === 200) {
-            setTimeout(() => {
-            fetchData()
-            }, 1000);
-        }
-        setLoading(false)
-        })
-        .catch(err => {
-            serError(err.response.data.error)
-            setLoading(false)
-            console.log(err)
-        })
-    }
-
-    const trickBtnOff=(userStatus, userId)=> {
-        setLoading(true)
-        axios
-        .put(`${process.env.REACT_APP_API_USER}/RichMenuHome/2/${userId}`,{userStatus})
-        .then(response => {
-        if (response.status === 200) {
-            setTimeout(() => {
-            fetchData()
-            setLoading(false)
-            }, 1000);
-        }
-        
-        })
-        .catch(err => {
-            setLoading(false)
-            serError(err.response.data.error)
-        })
-    }
     useEffect(() => {
         fetchData()
     },[])
 
     return (
-    <div className='container-sm'>
-        <div className='justify-conten-center'>
+        <div className='container p-2 justify-content-center mt-3'>
             {loading === false ?
             <div>
-                <h2 className={style.container} >จัดการสมาชิก</h2>
+                <h1 className={style.container} >จัดการสมาชิก</h1>
         <table className="table table-striped">
             <thead>
                 <tr>
@@ -98,30 +45,29 @@ function ListUserComponent() {
                             <td>{user.nickName}</td>
                             <td>{user.userStatus}</td>
                             <td className={style.Icons_table}>
-                                <BiUser onClick={
-                                    ()=>updateAdmin("Admin", user.userId)}
-                                />
-                                <BiUserCheck onClick={
-                                ()=>trickBtnOn("99" , user.userId)}/>
-                                <BiUserMinus onClick={
-                                    ()=>trickBtnOff("99/1" , user.userId)}/>
-                                <Link className={style.Icons_table} to={{pathname: `/user/${user.userId}`}}><MdInfo/></Link>
+                                <Link className={style.Icons_table} to={{pathname: `/user/${user.userId}`}}><TbEdit /></Link>
                             </td>
                         </tr>
                     </tbody>
                 ))
             }
             </table>
-            <h3>{error}</h3>
             </div> :
-                <div className={style.Circles}>
-                <Blocks visible={true} height="150" width="150"
-                ariaLabel="blocks-loading" wrapperStyle={{}}
-                wrapperClass="blocks-wrapper"/>
-                </div> 
+            <div className={style.Circles}>
+                    <h1>กำลังโหลด..</h1>&nbsp;
+                    <ProgressBar
+                    height="150"
+                    width="150"
+                    ariaLabel="progress-bar-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="progress-bar-wrapper"
+                    borderColor = '#000000'
+                    barColor = '#3385ff'
+                    />
+                
+            </div>
     }
         </div>
-    </div>
     )
 }
 
