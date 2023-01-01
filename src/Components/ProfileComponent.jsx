@@ -101,6 +101,20 @@ function ProfileComponent() {
             setError(err.response.data.error)
         })
     }
+    const DeleteUser=(userId) => {
+        setLoading(true)
+        axios.delete(`${process.env.REACT_APP_API_USER}/user/${userId}`)
+        .then(response => {
+            if (response.status === 200) {
+                setLoading(false)
+                fetchData()
+            }
+        })
+        .catch(err => {
+            setLoading(false)
+            setError(err.response.data.error)
+        })
+    }
     useEffect(() => {
         fetchData()
         // eslint-disable-next-line
@@ -111,7 +125,6 @@ function ProfileComponent() {
             <div className={style.card}>
             <Link to="/list-users">ย้อนกลับ</Link>
             <div classNameName={style.topContainer}>
-                {console.log(user)}
                 <img alt='โปรไฟล์' src={user.pictureUrl} className={style.profileImage} width="70"/>
                 
                 <div className="ml-3">
@@ -137,25 +150,24 @@ function ProfileComponent() {
                 </div>
             </div>
             <h3>{error}</h3>
-                <div className='row justify-content-md-center'>
-                    <div className='col-4 col-md-4'>
-                    <button className='btn btn-outline-primary' onClick={()=>UpdateAdmin("Admin", user.userId)}>ตั้งเป็น Admin</button>
+                <div className='row g-2 justify-content-md-center'>
+                    <div className='col-sm-5'>
+                            <button className='btn btn-outline-primary' onClick={()=>UpdateAdmin("Admin", user.userId)}>ตั้งเป็น Admin</button>
                     </div>
-                    
-                    <div className='col-4 col-md-4'>
-                    <button className='btn btn-outline-warning' onClick={()=>UpdateMainHome("99" , user.userId)}>ตั้งเป็นบ้าน 99</button>
+                    <div className='col-sm-5'>
+                            <button className='btn btn-outline-warning' onClick={()=>UpdateMainHome("99" , user.userId)}>ตั้งเป็นบ้าน 99</button>
                     </div>
-                </div>
-                <div className='row justify-content-md-center pt-3'>
-                    <div className='col col-lg-2'>
-                        <button className='btn btn-outline-info' onClick={()=>UpdateSubHome("99/1" , user.userId)}>ตั้งเป็นบ้าน 99/1</button>
+                    <div className='col-sm-5'>
+                            <button className='btn btn-outline-info' onClick={()=>UpdateSubHome("99/1" , user.userId)}>ตั้งเป็นบ้าน 99/1</button>
                     </div>
-                    
-                    <div className='col col-md-2'>
-                        <button className='btn btn-outline-secondary' onClick={()=>setUserToWait("รอ" , user.userId)}>ตั้งเป็น รอ</button>
+                    <div className='col-sm-5'>
+                            <button className='btn btn-outline-secondary' onClick={()=>setUserToWait("รอ" , user.userId)}>ตั้งเป็น รอ</button>
                     </div>
-                    <div className='col col-lg-2'>
+                    <div className='col-sm-5'>
                         <button className='btn btn-outline-success' onClick={()=>UpdateUser()}>อัพเดทโปรไฟล์</button>
+                    </div>
+                    <div className='col-sm-5'>
+                        <button className='btn btn-outline-dark' onClick={()=>DeleteUser()}>ลบโปรไฟล์</button>
                     </div>
                 </div>
             </div> 
